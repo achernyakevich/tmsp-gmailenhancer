@@ -21,11 +21,15 @@
         this.getContainerDiv = () => {
             return this.getDTPDiv().getElementsByClassName("hw")[0];
         }
+        this.getDateInput = () => {
+            return this.getContainerDiv().getElementsByClassName("hu jA")[0];
+        }
         this.getTimeInput = () => {
             return this.getContainerDiv().getElementsByClassName("hu ks")[0];
         }
         this.buildTimeSelector = () => {
             let container = this.getContainerDiv();
+            let selectedDateString = this.getDateInput().value;
             let div = document.createElement("div");
             div.className = "jo";
             container.appendChild(div);
@@ -33,26 +37,35 @@
             div.className = "kz";
             div.innerHTML =
                 "<select id='dtpEnhancerSelect'>" +
-                "<option value='10:30'>10:30</option>" +
-                "<option value='12:30'>12:30</option>" +
-                "<option value='17:00'>17:00</option>" +
+                this.getOptionsInnerHTML(selectedDateString) +
                 "</select>";
             container.appendChild(div);
             let select = document.getElementById("dtpEnhancerSelect");
             select.focus();
             select.addEventListener('change', (event) => {
-                this.getTimeInput().value = event.target.value;
+                let values = event.target.value.split("|");
+                this.getDateInput().value = values[0];
+                this.getTimeInput().value = values[1];
             }, true)
         }
+        this.getOptionsInnerHTML = (dateStr) => {
+            // date.toLocaleString("en-uk", {year: "numeric", month: "short", day: "numeric"})
+            // date.toLocaleString("en-uk", {hour: "2-digit", minute: "2-digit" })
+            return "<option value='" + dateStr + "|10:30'>10:30</option>" +
+                "<option value='" + dateStr + "|12:30'>12:30</option>" +
+                "<option value='" + dateStr + "|17:00'>17:00</option>";
+        }
         this.keydownEvenHandler = (event) => {
-            if ( ( this.osWindows && event.altKey && event.shiftKey && ( event.key == 'B' || event.key == 'И' ) )
-                || ( event.ctrlKey && event.shiftKey && ( event.key == 'B' || event.key == 'И' ) ) ) {
+            if ( ( event.shiftKey
+                  && ( event.altKey || event.ctrlKey )
+                  && ( event.code == 'KeyB' ) ) ) {
                 if ( this.getDTPDiv() ) {
                     this.buildTimeSelector();
                 }
                 event.stopPropagation();
                 event.preventDefault();
             }
+
         }
     }
     function tweakSnoozeDTP() {
