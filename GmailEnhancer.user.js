@@ -65,23 +65,29 @@
             }, true)
         }
         this.getOptionsInnerHTML = (relativeSnooze, dateStr) => {
+            return ( relativeSnooze
+                    ? this.getRelativeSnoozeOptionsInnerHTML()
+                    : this.getAbsoluteSnoozeOptionsInnerHTML(dateStr) );
+        }
+        this.getRelativeSnoozeOptionsInnerHTML = () => {
             let optionsStr = "";
-            if ( relativeSnooze ) {
-                for (const item in this.relativeSnoozeConfig) {
-                    let snoozeTo = new Date();
-                    snoozeTo.setTime(snoozeTo.getTime() + this.relativeSnoozeConfig[item]);
-                    let dayStr =
-                        snoozeTo.toLocaleString(this.gmailLocale, {year: "numeric", month: "short", day: "numeric"})
-                    let timeStr =
-                        snoozeTo.toLocaleString(this.gmailLocale, {hour: "2-digit", minute: "2-digit" })
-                    optionsStr += "<option value='" + dayStr + "|" + timeStr + "'>" +
-                        item + "</option>";
-                }
-            } else {
-                optionsStr = "<option value='" + dateStr + "|10:30'>10:30</option>" +
-                    "<option value='" + dateStr + "|12:30'>12:30</option>" +
-                    "<option value='" + dateStr + "|17:00'>17:00</option>";
+            for (const item in this.relativeSnoozeConfig) {
+                let snoozeTo = new Date();
+                snoozeTo.setTime(snoozeTo.getTime() + this.relativeSnoozeConfig[item]);
+                let dayStr =
+                    snoozeTo.toLocaleString(this.gmailLocale, {year: "numeric", month: "short", day: "numeric"})
+                let timeStr =
+                    snoozeTo.toLocaleString(this.gmailLocale, {hour: "2-digit", minute: "2-digit" })
+                optionsStr += "<option value='" + dayStr + "|" + timeStr + "'>" +
+                    item + "</option>";
             }
+            return optionsStr;
+        }
+        this.getAbsoluteSnoozeOptionsInnerHTML = (dateStr) => {
+            let optionsStr = "";
+            optionsStr = "<option value='" + dateStr + "|10:30'>10:30</option>" +
+                "<option value='" + dateStr + "|12:30'>12:30</option>" +
+                "<option value='" + dateStr + "|17:00'>17:00</option>";
             return optionsStr;
         }
         this.destroySnoozeSelector = () => {
