@@ -14,6 +14,17 @@
 
     const dtpHelper = new function() {
         this.osWindows = window.navigator.platform.includes("Win");
+        this.gmailLocale = "en-uk";
+        this.relativeSnoozeConfig = {
+            "15 min": 15*60*1000,
+            "30 min": 30*60*1000,
+            "45 min": 45*60*1000,
+            "1 hour": 1*60*60*1000,
+            "2 hours": 2*60*60*1000,
+            "4 hours": 4*60*60*1000,
+            "8 hours": 8*60*60*1000,
+            "24 hours": 24*60*60*1000
+        };
         this.getDTPDiv = () => {
             let divs = document.getElementsByClassName("Kj-JD hr");
             return ( divs.length > 0 ? divs[0] : null );
@@ -27,7 +38,7 @@
         this.getTimeInput = () => {
             return this.getContainerDiv().getElementsByClassName("hu ks")[0];
         }
-        this.buildSnoozeSelector = () => {
+        this.buildSnoozeSelector = (relativeSnooze = false) => {
             let container = this.getContainerDiv();
             let selectedDateString = this.getDateInput().value;
             let div = document.createElement("div");
@@ -39,7 +50,7 @@
             div.id = "snoozeSelectorSelectDiv";
             div.innerHTML =
                 "<select id='snoozeSelectorSelect'>" +
-                this.getOptionsInnerHTML(selectedDateString) +
+                this.getOptionsInnerHTML(relativeSnooze, selectedDateString) +
                 "</select>";
             container.appendChild(div);
             let select = document.getElementById("snoozeSelectorSelect");
@@ -53,12 +64,25 @@
                 this.destroySnoozeSelector();
             }, true)
         }
-        this.getOptionsInnerHTML = (dateStr) => {
-            // date.toLocaleString("en-uk", {year: "numeric", month: "short", day: "numeric"})
-            // date.toLocaleString("en-uk", {hour: "2-digit", minute: "2-digit" })
-            return "<option value='" + dateStr + "|10:30'>10:30</option>" +
-                "<option value='" + dateStr + "|12:30'>12:30</option>" +
-                "<option value='" + dateStr + "|17:00'>17:00</option>";
+        this.getOptionsInnerHTML = (relativeSnooze, dateStr) => {
+            let optionsStr = "";
+            if ( relativeSnooze ) {
+                for (const item in this.relativeSnoozeConfig) {
+                    let snoozeTo = new Date();
+                    snoozeTo.setTime(snoozeTo.getTime() + this.relativeSnoozeConfig[item]);
+                    let dayStr =
+                        snoozeTo.toLocaleString(this.gmailLocale, {year: "numeric", month: "short", day: "numeric"})
+                    let timeStr =
+                        snoozeTo.toLocaleString(this.gmailLocale, {hour: "2-digit", minute: "2-digit" })
+                    optionsStr += "<option value='" + dayStr + "|" + timeStr + "'>" +
+                        item + "</option>";
+                }
+            } else {
+                optionsStr = "<option value='" + dateStr + "|10:30'>10:30</option>" +
+                    "<option value='" + dateStr + "|12:30'>12:30</option>" +
+                    "<option value='" + dateStr + "|17:00'>17:00</option>";
+            }
+            return optionsStr;
         }
         this.destroySnoozeSelector = () => {
             let div = document.getElementById("snoozeSelectorSelectDiv");
@@ -71,12 +95,15 @@
                   && ( event.altKey || event.ctrlKey )
                   && ( event.code == 'KeyB' ) ) ) {
                 if ( this.getDTPDiv() ) {
-                    this.buildSnoozeSelector();
+                    if ( event.altKey ) {
+                        this.buildSnoozeSelector(true);
+                    } else {
+                        this.buildSnoozeSelector(false);
+                    }
                 }
                 event.stopPropagation();
                 event.preventDefault();
             }
-
         }
     }
     function tweakSnoozeDTP() {
