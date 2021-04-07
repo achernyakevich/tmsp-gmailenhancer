@@ -27,25 +27,30 @@
         this.getTimeInput = () => {
             return this.getContainerDiv().getElementsByClassName("hu ks")[0];
         }
-        this.buildTimeSelector = () => {
+        this.buildSnoozeSelector = () => {
             let container = this.getContainerDiv();
             let selectedDateString = this.getDateInput().value;
             let div = document.createElement("div");
             div.className = "jo";
+            div.id = "snoozeSelectorGapDiv";
             container.appendChild(div);
             div = document.createElement("div");
             div.className = "kz";
+            div.id = "snoozeSelectorSelectDiv";
             div.innerHTML =
-                "<select id='dtpEnhancerSelect'>" +
+                "<select id='snoozeSelectorSelect'>" +
                 this.getOptionsInnerHTML(selectedDateString) +
                 "</select>";
             container.appendChild(div);
-            let select = document.getElementById("dtpEnhancerSelect");
+            let select = document.getElementById("snoozeSelectorSelect");
             select.focus();
             select.addEventListener('change', (event) => {
                 let values = event.target.value.split("|");
                 this.getDateInput().value = values[0];
                 this.getTimeInput().value = values[1];
+            }, true)
+            select.addEventListener('blur', (event) => {
+                this.destroySnoozeSelector();
             }, true)
         }
         this.getOptionsInnerHTML = (dateStr) => {
@@ -55,12 +60,18 @@
                 "<option value='" + dateStr + "|12:30'>12:30</option>" +
                 "<option value='" + dateStr + "|17:00'>17:00</option>";
         }
+        this.destroySnoozeSelector = () => {
+            let div = document.getElementById("snoozeSelectorSelectDiv");
+            if ( div ) { div.remove() }
+            div = document.getElementById("snoozeSelectorGapDiv");
+            if ( div ) { div.remove() }
+        }
         this.keydownEvenHandler = (event) => {
             if ( ( event.shiftKey
                   && ( event.altKey || event.ctrlKey )
                   && ( event.code == 'KeyB' ) ) ) {
                 if ( this.getDTPDiv() ) {
-                    this.buildTimeSelector();
+                    this.buildSnoozeSelector();
                 }
                 event.stopPropagation();
                 event.preventDefault();
