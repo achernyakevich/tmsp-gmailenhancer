@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GmailEnhancer
 // @namespace    https://bitbucket.org/achernyakevich/tmsp-gmailenhancer/
-// @version      0.3.0
+// @version      0.3.1
 // @description  This script enhance Gmail UI and add some functionality.
 // @author       Alexander Chernyakevich <tch@rambler.ru>
 // @match        https://mail.google.com/mail/*
