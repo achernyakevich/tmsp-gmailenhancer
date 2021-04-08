@@ -25,6 +25,13 @@
             "8 hours": 8*60*60*1000,
             "24 hours": 24*60*60*1000
         };
+        this.absoluteSnoozeConfig = [{h: 10, m: 30}, {h: 12, m: 20}, {h: 17, m: 0}, {h: 18, m: 45}];
+        this.getDateLocaleString = (date) => {
+            return date.toLocaleString(this.gmailLocale, {year: "numeric", month: "short", day: "numeric"})
+        }
+        this.getTimeLocaleString = (date) => {
+            return date.toLocaleString(this.gmailLocale, {hour: "2-digit", minute: "2-digit" })
+        }
         this.getDTPDiv = () => {
             let divs = document.getElementsByClassName("Kj-JD hr");
             return ( divs.length > 0 ? divs[0] : null );
@@ -67,28 +74,42 @@
         this.getOptionsInnerHTML = (relativeSnooze, dateStr) => {
             return ( relativeSnooze
                     ? this.getRelativeSnoozeOptionsInnerHTML()
-                    : this.getAbsoluteSnoozeOptionsInnerHTML(dateStr) );
+                    : this.getAbsoluteSnoozeOptionsInnerHTML() );
         }
         this.getRelativeSnoozeOptionsInnerHTML = () => {
             let optionsStr = "";
             for (const item in this.relativeSnoozeConfig) {
                 let snoozeTo = new Date();
                 snoozeTo.setTime(snoozeTo.getTime() + this.relativeSnoozeConfig[item]);
-                let dayStr =
-                    snoozeTo.toLocaleString(this.gmailLocale, {year: "numeric", month: "short", day: "numeric"})
-                let timeStr =
-                    snoozeTo.toLocaleString(this.gmailLocale, {hour: "2-digit", minute: "2-digit" })
-                optionsStr += "<option value='" + dayStr + "|" + timeStr + "'>" +
-                    item + "</option>";
+                optionsStr += this.getSnoozeToOption(snoozeTo, item);
             }
             return optionsStr;
         }
-        this.getAbsoluteSnoozeOptionsInnerHTML = (dateStr) => {
+        this.getAbsoluteSnoozeOptionsInnerHTML = () => {
             let optionsStr = "";
-            optionsStr = "<option value='" + dateStr + "|10:30'>10:30</option>" +
-                "<option value='" + dateStr + "|12:30'>12:30</option>" +
-                "<option value='" + dateStr + "|17:00'>17:00</option>";
+            let options = [];
+            this.absoluteSnoozeConfig.forEach(it => {
+                let prefix = "";
+                let dateTime = new Date();
+                dateTime.setHours(it.h);
+                dateTime.setMinutes(it.m);
+                if ( dateTime.getTime() < new Date().getTime() ) {
+                    prefix = "Tomorrow ";
+                    dateTime.setDate(dateTime.getDate()+1);
+                }
+                let lbl = prefix + this.getTimeLocaleString(dateTime);
+                options.push({"snoozeTo": dateTime, "label": lbl});
+            });
+            options.sort((o1, o2) => {return o1.snoozeTo.getTime() - o2.snoozeTo.getTime()});
+            options.forEach(it => {
+                optionsStr += this.getSnoozeToOption(it.snoozeTo, it.label);
+            });
             return optionsStr;
+        }
+        this.getSnoozeToOption = (snoozeTo, label) => {
+            return "<option value='" +
+                this.getDateLocaleString(snoozeTo) + "|" + this.getTimeLocaleString(snoozeTo) +
+                "'>" + label + "</option>";
         }
         this.destroySnoozeSelector = () => {
             let div = document.getElementById("snoozeSelectorSelectDiv");
