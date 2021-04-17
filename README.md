@@ -12,6 +12,13 @@ an issue.
 
 ## Release Notes ##
 
+## v. 0.3.1 ##
+
+### Features ###
+
+* Possibility to set snooze Date/Time by predefined delay for Snooze popup
+* Possibility to set snooze Date/Time for predefined time for Snooze popup
+
 ## v. 0.3.0 ##
 
 ### Misc ###
