@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GmailEnhancer
 // @namespace    https://bitbucket.org/achernyakevich/tmsp-gmailenhancer/
-// @version      0.3.1
+// @version      0.3.2
 // @description  This script enhance Gmail UI and add some functionality.
 // @author       Alexander Chernyakevich <tch@rambler.ru>
 // @match        https://mail.google.com/mail/*
@@ -66,10 +66,11 @@
                 let values = event.target.value.split("|");
                 this.getDateInput().value = values[0];
                 this.getTimeInput().value = values[1];
-            }, true)
+            }, true);
             select.addEventListener('blur', (event) => {
                 this.destroySnoozeSelector();
-            }, true)
+            }, true);
+            select.dispatchEvent(new Event('change'));
         }
         this.getOptionsInnerHTML = (relativeSnooze, dateStr) => {
             return ( relativeSnooze

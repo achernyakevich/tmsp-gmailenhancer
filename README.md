@@ -12,6 +12,13 @@ an issue.
 
 ## Release Notes ##
 
+## v. 0.3.2 ##
+
+### Fixes ###
+
+* Initiation of snooze Date/Time set first selected option's date/time
+automatically without changing selection
+
 ## v. 0.3.1 ##
 
 ### Features ###
