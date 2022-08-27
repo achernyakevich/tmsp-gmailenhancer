@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GmailEnhancer
 // @namespace    https://bitbucket.org/achernyakevich/tmsp-gmailenhancer/
-// @version      0.3.2
+// @version      0.3.3
 // @description  This script enhance Gmail UI and add some functionality.
 // @author       Alexander Chernyakevich <tch@rambler.ru>
 // @match        https://mail.google.com/mail/*
@@ -12,9 +12,11 @@
 (function() {
     'use strict';
 
+    const GMAIL_LOCALE = document.getElementsByTagName("html")[0].getAttribute("lang");
+
     const dtpHelper = new function() {
         this.osWindows = window.navigator.platform.includes("Win");
-        this.gmailLocale = "en-uk";
+        this.gmailLocale = ( GMAIL_LOCALE ? GMAIL_LOCALE : "en-uk" );
         this.relativeSnoozeConfig = {
             "15 min": 15*60*1000,
             "30 min": 30*60*1000,
