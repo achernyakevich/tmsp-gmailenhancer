@@ -1,5 +1,11 @@
 ## Release Notes ##
 
+## v. 0.4.0 ##
+
+### Fixes ###
+
+* Fixed after August/September 2024 update of Gmail UI.
+
 ## v. 0.3.3 ##
 
 ### Enhancements ###

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GmailEnhancer
 // @namespace    https://bitbucket.org/achernyakevich/tmsp-gmailenhancer/
-// @version      0.3.3
+// @version      0.4.0
 // @description  This script enhance Gmail UI and add some functionality.
 // @author       Alexander Chernyakevich <tch@rambler.ru>
 // @match        https://mail.google.com/mail/*
@@ -35,30 +35,27 @@
             return date.toLocaleString(this.gmailLocale, {hour: "2-digit", minute: "2-digit" })
         }
         this.getDTPDiv = () => {
-            let divs = document.getElementsByClassName("Kj-JD hr");
+            let divs = document.getElementsByClassName("jaoQi");
             return ( divs.length > 0 ? divs[0] : null );
         }
         this.getContainerDiv = () => {
             return this.getDTPDiv().getElementsByClassName("hw")[0];
         }
         this.getDateInput = () => {
-            return this.getContainerDiv().getElementsByClassName("hu jA")[0];
+            return this.getContainerDiv().getElementsByClassName("qdOxv-K0-wGMbrd")[0];
         }
         this.getTimeInput = () => {
-            return this.getContainerDiv().getElementsByClassName("hu ks")[0];
+            return this.getContainerDiv().getElementsByClassName("qdOxv-K0-wGMbrd")[1];
         }
         this.buildSnoozeSelector = (relativeSnooze = false) => {
             let container = this.getContainerDiv();
             let selectedDateString = this.getDateInput().value;
             let div = document.createElement("div");
-            div.className = "jo";
-            div.id = "snoozeSelectorGapDiv";
-            container.appendChild(div);
             div = document.createElement("div");
             div.className = "kz";
             div.id = "snoozeSelectorSelectDiv";
             div.innerHTML =
-                "<select id='snoozeSelectorSelect'>" +
+                "<select id='snoozeSelectorSelect' style='height: 35px;'>" +
                 this.getOptionsInnerHTML(relativeSnooze, selectedDateString) +
                 "</select>";
             container.appendChild(div);
