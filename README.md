@@ -4,7 +4,7 @@ The `GmailEnhancer.user.js` designed to bring additional functionality and UI
 enhancements to [Gmail](https://mail.google.com/).
 
 To install script click the following link -
-[GmailEnhancer.user.js](https://bitbucket.org/achernyakevich/tmsp-gmailenhancer/raw/master/GmailEnhancer.user.js).
+[GmailEnhancer.user.js](https://github.com/achernyakevich/tmsp-gmailenhancer/raw/refs/heads/main/GmailEnhancer.user.js).
 
 
 ## Features
@@ -43,4 +43,5 @@ If you would like to contribute - create a pull request.
 
 If you have found a bug or need some features or would like to propose some
 features - create an issue. But we will appreaciate if you will first check
-the list of [already existed issues](https://bitbucket.org/achernyakevich/tmsp-gmailenhancer/issues) to prevent creation of duplicates.
+the list of [already existed issues](https://github.com/achernyakevich/tmsp-gmailenhancer/issues)
+to prevent creation of duplicates.

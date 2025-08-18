@@ -1,12 +1,14 @@
 // ==UserScript==
-// @name         GmailEnhancer
-// @namespace    https://bitbucket.org/achernyakevich/tmsp-gmailenhancer/
-// @version      0.4.0
-// @description  This script enhance Gmail UI and add some functionality.
-// @author       Alexander Chernyakevich <tch@rambler.ru>
-// @match        https://mail.google.com/mail/*
-// @grant        GM_log
-// @grant        GM_registerMenuCommand
+// @name        GmailEnhancer
+// @namespace   https://github.com/achernyakevich/tmsp-gmailenhancer/
+// @updateURL   https://github.com/achernyakevich/tmsp-gmailenhancer/raw/refs/heads/main/GmailEnhancer.user.js
+// @downloadURL https://github.com/achernyakevich/tmsp-gmailenhancer/raw/refs/heads/main/GmailEnhancer.user.js
+// @version     0.4.1
+// @description This script enhance Gmail UI and add some functionality.
+// @author      Alexander Chernyakevich
+// @match       https://mail.google.com/mail/*
+// @grant       GM_log
+// @grant       GM_registerMenuCommand
 // ==/UserScript==
 
 (function() {

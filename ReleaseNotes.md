@@ -1,5 +1,12 @@
 ## Release Notes ##
 
+## v. 0.4.1 ##
+
+### Enhancements ###
+
+* Migration to GitHub - https://github.com/achernyakevich/tmsp-gmailenhancer/
+
+
 ## v. 0.4.0 ##
 
 ### Fixes ###
