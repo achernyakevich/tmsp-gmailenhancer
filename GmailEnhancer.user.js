@@ -3,7 +3,7 @@
 // @namespace   https://github.com/achernyakevich/tmsp-gmailenhancer/
 // @updateURL   https://github.com/achernyakevich/tmsp-gmailenhancer/raw/refs/heads/main/GmailEnhancer.user.js
 // @downloadURL https://github.com/achernyakevich/tmsp-gmailenhancer/raw/refs/heads/main/GmailEnhancer.user.js
-// @version     0.4.1
+// @version     0.4.2
 // @description This script enhance Gmail UI and add some functionality.
 // @author      Alexander Chernyakevich
 // @match       https://mail.google.com/mail/*
@@ -53,15 +53,17 @@
             let container = this.getContainerDiv();
             let selectedDateString = this.getDateInput().value;
             let div = document.createElement("div");
-            div = document.createElement("div");
             div.className = "kz";
             div.id = "snoozeSelectorSelectDiv";
-            div.innerHTML =
-                "<select id='snoozeSelectorSelect' style='height: 35px;'>" +
-                this.getOptionsInnerHTML(relativeSnooze, selectedDateString) +
-                "</select>";
             container.appendChild(div);
-            let select = document.getElementById("snoozeSelectorSelect");
+            let select = document.createElement("select");
+            select.style = "height: 35px;";
+            select.id = "snoozeSelectorSelect";
+            let options = this.getOptions(relativeSnooze, selectedDateString);
+            options.forEach(option => {
+                select.appendChild(option);
+            });
+            div.appendChild(select);
             select.focus();
             select.addEventListener('change', (event) => {
                 let values = event.target.value.split("|");
@@ -73,23 +75,22 @@
             }, true);
             select.dispatchEvent(new Event('change'));
         }
-        this.getOptionsInnerHTML = (relativeSnooze, dateStr) => {
+        this.getOptions = (relativeSnooze, dateStr) => {
             return ( relativeSnooze
-                    ? this.getRelativeSnoozeOptionsInnerHTML()
-                    : this.getAbsoluteSnoozeOptionsInnerHTML() );
+                    ? this.getRelativeSnoozeOptions()
+                    : this.getAbsoluteSnoozeOptions() );
         }
-        this.getRelativeSnoozeOptionsInnerHTML = () => {
-            let optionsStr = "";
+        this.getRelativeSnoozeOptions = () => {
+            let options = [];
             for (const item in this.relativeSnoozeConfig) {
                 let snoozeTo = new Date();
                 snoozeTo.setTime(snoozeTo.getTime() + this.relativeSnoozeConfig[item]);
-                optionsStr += this.getSnoozeToOption(snoozeTo, item);
+                options.push(this.getSnoozeOption(snoozeTo, item));
             }
-            return optionsStr;
+            return options;
         }
-        this.getAbsoluteSnoozeOptionsInnerHTML = () => {
-            let optionsStr = "";
-            let options = [];
+        this.getAbsoluteSnoozeOptions = () => {
+            let optionsList = [];
             this.absoluteSnoozeConfig.forEach(it => {
                 let prefix = "";
                 let dateTime = new Date();
@@ -100,18 +101,20 @@
                     dateTime.setDate(dateTime.getDate()+1);
                 }
                 let lbl = prefix + this.getTimeLocaleString(dateTime);
-                options.push({"snoozeTo": dateTime, "label": lbl});
+                optionsList.push({"snoozeTo": dateTime, "label": lbl});
             });
-            options.sort((o1, o2) => {return o1.snoozeTo.getTime() - o2.snoozeTo.getTime()});
-            options.forEach(it => {
-                optionsStr += this.getSnoozeToOption(it.snoozeTo, it.label);
+            optionsList.sort((o1, o2) => {return o1.snoozeTo.getTime() - o2.snoozeTo.getTime()});
+            let options = [];
+            optionsList.forEach(it => {
+                options.push(this.getSnoozeOption(it.snoozeTo, it.label));
             });
-            return optionsStr;
+            return options;
         }
-        this.getSnoozeToOption = (snoozeTo, label) => {
-            return "<option value='" +
-                this.getDateLocaleString(snoozeTo) + "|" + this.getTimeLocaleString(snoozeTo) +
-                "'>" + label + "</option>";
+        this.getSnoozeOption = (snoozeTo, label) => {
+            let option = document.createElement("option");
+            option.value = this.getDateLocaleString(snoozeTo) + "|" + this.getTimeLocaleString(snoozeTo);
+            option.text = label;
+            return option;
         }
         this.destroySnoozeSelector = () => {
             let div = document.getElementById("snoozeSelectorSelectDiv");
@@ -143,7 +146,7 @@
 
     function tweakStyles() {
         let sheet = document.createElement('style');
-        sheet.innerHTML =
+        sheet.textContent =
             "div.a3s {font-size: medium}\n" +
             "div.Am>div {font-size: medium}\n" +
             "div.Am {font-size: medium}";

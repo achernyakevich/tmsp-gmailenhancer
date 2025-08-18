@@ -1,5 +1,12 @@
 ## Release Notes ##
 
+## v. 0.4.2 ##
+
+### Fixes ###
+
+* Fixed `innerHTML` usage for Chrome browser
+
+
 ## v. 0.4.1 ##
 
 ### Enhancements ###
