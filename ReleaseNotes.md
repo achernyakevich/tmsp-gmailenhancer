@@ -51,7 +51,7 @@ automatically without changing selection
 ### Misc ###
 
 * Migrated to new public repository
-* Added metainformation for supporting automatic updates and public activities
+* Added meta-information for supporting automatic updates and public activities
 
 ## v. 0.2.2 and earlier ##
 

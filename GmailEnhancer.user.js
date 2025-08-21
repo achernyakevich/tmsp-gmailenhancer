@@ -4,7 +4,7 @@
 // @updateURL   https://github.com/achernyakevich/tmsp-gmailenhancer/raw/refs/heads/main/GmailEnhancer.user.js
 // @downloadURL https://github.com/achernyakevich/tmsp-gmailenhancer/raw/refs/heads/main/GmailEnhancer.user.js
 // @version     0.4.2
-// @description This script enhance Gmail UI and add some functionality.
+// @description GmailEnhancer is designed to bring additional functionality and UI enhancements to Gmail. These include enhancements for the `Snooze until...` dialog (choose how much to postpone the task), mail font size tweaking, etc.
 // @author      Alexander Chernyakevich
 // @match       https://mail.google.com/mail/*
 // @grant       GM_log

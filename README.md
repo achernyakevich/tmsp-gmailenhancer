@@ -1,7 +1,9 @@
 ## Intro ##
 
-The `GmailEnhancer.user.js` designed to bring additional functionality and UI
-enhancements to [Gmail](https://mail.google.com/).
+The `GmailEnhancer.user.js` is designed to bring additional functionality and
+UI enhancements to [Gmail](https://mail.google.com/). These include
+enhancements for the `Snooze until...` dialog (choose how much to postpone the
+task), mail font size tweaking, etc.
 
 To install script click the following link -
 [GmailEnhancer.user.js](https://github.com/achernyakevich/tmsp-gmailenhancer/raw/refs/heads/main/GmailEnhancer.user.js).
@@ -9,7 +11,7 @@ To install script click the following link -
 
 ## Features
 
-### Mail "Snooze until..." dialog enhancments
+### Mail "Snooze until..." dialog enhancements
 
 If you have open "Snooze until..." dialog then you can use the following
 keyboard shortcuts:
@@ -42,6 +44,6 @@ See more in detailed [Release Notes](./ReleaseNotes.md).
 If you would like to contribute - create a pull request.
 
 If you have found a bug or need some features or would like to propose some
-features - create an issue. But we will appreaciate if you will first check
+features - create an issue. But we will appreciate if you will first check
 the list of [already existed issues](https://github.com/achernyakevich/tmsp-gmailenhancer/issues)
 to prevent creation of duplicates.
