@@ -1,5 +1,12 @@
 ## Release Notes ##
 
+## v. 0.4.1 ##
+
+### Enhancements ###
+
+* Added option `almost now (1 min)` for relative snoozing.
+
+
 ## v. 0.4.2 ##
 
 ### Fixes ###

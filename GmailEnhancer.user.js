@@ -3,7 +3,7 @@
 // @namespace   https://github.com/achernyakevich/tmsp-gmailenhancer/
 // @updateURL   https://github.com/achernyakevich/tmsp-gmailenhancer/raw/refs/heads/main/GmailEnhancer.user.js
 // @downloadURL https://github.com/achernyakevich/tmsp-gmailenhancer/raw/refs/heads/main/GmailEnhancer.user.js
-// @version     0.4.2
+// @version     0.4.3
 // @description GmailEnhancer is designed to bring additional functionality and UI enhancements to Gmail. These include enhancements for the `Snooze until...` dialog (choose how much to postpone the task), mail font size tweaking, etc.
 // @author      Alexander Chernyakevich
 // @match       https://mail.google.com/mail/*
@@ -27,7 +27,8 @@
             "2 hours": 2*60*60*1000,
             "4 hours": 4*60*60*1000,
             "8 hours": 8*60*60*1000,
-            "24 hours": 24*60*60*1000
+            "24 hours": 24*60*60*1000,
+            "almost now (1 min)": 1*60*1000
         };
         this.absoluteSnoozeConfig = [{h: 10, m: 30}, {h: 12, m: 20}, {h: 17, m: 0}, {h: 18, m: 45}];
         this.getDateLocaleString = (date) => {
