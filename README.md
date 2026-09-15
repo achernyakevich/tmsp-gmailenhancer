@@ -16,11 +16,11 @@ To install script click the following link -
 If you have open "Snooze until..." dialog then you can use the following
 keyboard shortcuts:
 
-* `Alt + B` (macOS - `Option + B`) - it will show selectbox to select relative
-snooze options.
+* `Shift + Alt + B` (macOS - `Shift + Option + B`) - it will show selectbox
+to select relative snooze options.
 !["Snooze until..." date-time picker enhance by relative snooze options](./images/SnoozeDTP-relative.png)
-* `Ctrl + B` (macOS - `MacCtrl + B`) - it will show selectbox to select fixed time
-snooze options.
+* `Shift + Ctrl + B` (macOS - `Shift + MacCtrl + B`) - it will show selectbox
+to select fixed time snooze options.
 !["Snooze until..." date-time picker enhance by fixed snooze options](./images/SnoozeDTP-fixed.png)
 
 
